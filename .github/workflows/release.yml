@@ -23,7 +23,7 @@ jobs:
 
       - name: Generate changelog
         run: |
-          auto-changelog -p --package false  # 使用 auto-changelog 生成 CHANGELOG.md 文件
+          auto-changelog -p  # 使用 auto-changelog 生成 CHANGELOG.md 文件
 
       - name: Commit changes
         run: |
