@@ -49,7 +49,10 @@ jobs:
 
       - name: Tag and push
         run: |
-          # 获取版本号或根据需要自定义标签
-          VERSION=$(date +'%Y.%m.%d')  # 生成基于日期的标签
-          git tag "v$VERSION"  # 创建新的标签
-          git push origin "v$VERSION"  # 推送标签到远程仓库
+          # 获取 package.json 中的版本号
+          VERSION=$(jq -r '.version' package.json)  # 提取版本号
+          DATE=$(date +'%Y.%m.%d')  # 获取当前日期
+          FULL_VERSION="v$VERSION-$DATE"  # 组合版本号和日期
+
+          git tag "$FULL_VERSION"  # 创建新的标签
+          git push origin "$FULL_VERSION"  # 推送标签到远程仓库
