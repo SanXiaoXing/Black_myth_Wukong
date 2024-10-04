@@ -34,3 +34,6 @@ jobs:
           git add .
           git commit -m "chore(release): update version and changelog"
           git push --follow-tags
+      - name: Push changes back to repository
+        run: |
+          git push
