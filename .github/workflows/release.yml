@@ -33,7 +33,7 @@ jobs:
       # 根据提交类型自动更新版本号和 CHANGELOG.md
       - name: Update version and changelog
         run: |
-          npx standard-version --release-as minor  # 更新版本为次版本
+          npm standard-version --release-as minor  # 更新版本为次版本
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add .
