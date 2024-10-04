@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - yx
-    # 仅在提交消息包含 feat 时触发
-    types:
-      - committed
 
 jobs:
   release:
