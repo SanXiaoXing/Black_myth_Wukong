@@ -23,7 +23,13 @@ jobs:
 
       - name: Generate changelog
         run: |
-          auto-changelog -p  # 使用 auto-changelog 生成 CHANGELOG.md 文件
+          # 生成新的 changelog 到临时文件
+          auto-changelog -p --output temp_changelog.md
+          # 保留当前 CHANGELOG.md 中最新的条目并将其余部分移动到 temp_changelog.md
+          head -n 20 CHANGELOG.md > latest_changelog.md  # 保留前 20 行（或根据需要修改行数）
+          echo "" > CHANGELOG.md  # 清空 CHANGELOG.md 文件
+          cat temp_changelog.md >> CHANGELOG.md  # 将新的 changelog 追加到 CHANGELOG.md
+          cat latest_changelog.md >> CHANGELOG.md  # 将旧的内容添加到 CHANGELOG.md
 
       - name: Commit changes
         run: |
@@ -32,3 +38,10 @@ jobs:
           git add CHANGELOG.md  # 添加生成的 changelog 文件
           git commit -m "chore: update changelog" || echo "No changes to commit"  # 提交更改
           git push  # 推送到远程仓库
+
+      - name: Tag and push
+        run: |
+          # 获取版本号或根据需要自定义标签
+          VERSION=$(date +'%Y.%m.%d')  # 生成基于日期的标签
+          git tag "v$VERSION"  # 创建新的标签
+          git push origin "v$VERSION"  # 推送标签到远程仓库
