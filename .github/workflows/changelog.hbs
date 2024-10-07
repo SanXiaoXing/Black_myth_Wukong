@@ -1,7 +1,5 @@
-{{#if title}}
-## {{title}}
-{{/if}}
-
 {{#each commits}}
-* {{header}} ({{authorDate}})
+{{#if @first}},{{/if}}{{formatDate date}}
+- {{this.subject}} ({{this.shortHash}})
 {{/each}}
+
