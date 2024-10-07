@@ -19,10 +19,12 @@ jobs:
 
       - name: Install dependencies
         run: |
+          npm install -g standard-version
           npm install -g conventional-changelog-cli
 
       - name: Generate changelog
         run: |
+          standard-version
           conventional-changelog -p angular -i CHANGELOG.md -s --template .github/workflows/changelog.hbs
 
       - name: Commit changes
