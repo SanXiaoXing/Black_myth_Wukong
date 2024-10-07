@@ -19,29 +19,29 @@ jobs:
         with:
           node-version: '18'  # 指定 Node.js 版本
 
+      - name: Set Git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"  # 设置 Git 用户信息
+
       - name: Install dependencies
         run: |
           npm install -g standard-version
-          npm install -g cz-conventional-changelog
-          npm install -g conventional-changelog-cli
 
-      - name: Generate changelog
+      - name: Bump version and update changelog
         run: |
-          standard-version
-          conventional-changelog -p angular -i CHANGELOG.md -s -r 0 --template /.github/workflows/changelog.hbs
+          npx standard-version --release-as minor --skip.tag  # 更新版本并生成 CHANGELOG.md，避免自动标签
 
       - name: Commit changes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add CHANGELOG.md
-          git commit -m "chore: update changelog" || echo "No changes to commit"
-          git push
+          git add CHANGELOG.md package.json  # 添加更改
+          git commit -m "chore: update changelog" || echo "No changes to commit"  # 提交更改
+          git push  # 推送更改
 
       - name: Tag and push
         run: |
-          VERSION=$(jq -r '.version' package.json)
-          DATE=$(date +'%Y.%m.%d')
-          FULL_VERSION="v$VERSION-$DATE"
-          git tag "$FULL_VERSION"
-          git push origin "$FULL_VERSION"
+          VERSION=$(jq -r '.version' package.json)  # 获取新版本号
+          DATE=$(date +'%Y.%m.%d')  # 获取当前日期
+          FULL_VERSION="v$VERSION-$DATE"  # 组合版本号和日期
+          git tag "$FULL_VERSION"  # 创建新标签
+          git push origin "$FULL_VERSION"  # 推送标签
