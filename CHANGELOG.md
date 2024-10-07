@@ -1,3 +1,14 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## 1.5.0 (2024-10-07)
+
+
+### Features
+
+* update ([b813920](https://github.com/SanXiaoXing/Black_myth_Wukong/commit/b81392078fe1ddd2b597357f8c0c49ece88add42))
+
 # 1.4.0 (2024-10-07)
 
 
