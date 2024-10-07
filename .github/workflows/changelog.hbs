@@ -1,7 +1,6 @@
 {{#each commits}}
-{{formatDate date}}:
-{{#each this}}
+{{#if @first}}  <!-- 仅在第一条记录时输出日期 -->
+## {{formatDate date}}  <!-- 输出日期 -->
+{{/if}}
 - {{this.subject}} ({{this.shortHash}})
 {{/each}}
-{{/each}}
-
