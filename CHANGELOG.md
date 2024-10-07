@@ -1,4 +1,4 @@
-## 1.0.2 (2024-10-07)
+## 1.0.3 (2024-10-07)
 
 
 ### Bug Fixes
@@ -6,6 +6,7 @@
 * fix CHANGELOG ([13dcf1e](https://github.com/SanXiaoXing/Black_myth_Wukong/commit/13dcf1e21155d54b123ef87e9fcf35fddbba0f90))
 * fix workflow ([fb8b160](https://github.com/SanXiaoXing/Black_myth_Wukong/commit/fb8b16027a4d10900480995b5589de5ad8b929ee))
 * nothimg ([0a705ed](https://github.com/SanXiaoXing/Black_myth_Wukong/commit/0a705ed7877338fe306c74121e660a67b7e55cba))
+* update version ([ad9f967](https://github.com/SanXiaoXing/Black_myth_Wukong/commit/ad9f9672322ddce80bd265291678a4927f09cbdf))
 * update version ([b489c0b](https://github.com/SanXiaoXing/Black_myth_Wukong/commit/b489c0b83a90b4581c7f4ec2a316e9639227863e))
 * update version ([473ab84](https://github.com/SanXiaoXing/Black_myth_Wukong/commit/473ab84de48db47909b426c4721512a892ba94f9))
 * 不知道行不行 ([52a0f7b](https://github.com/SanXiaoXing/Black_myth_Wukong/commit/52a0f7be5b162315855344154e3dc890ab7b1cf5))
