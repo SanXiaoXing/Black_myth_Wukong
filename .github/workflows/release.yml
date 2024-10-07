@@ -10,38 +10,35 @@ jobs:
     runs-on: ubuntu-latest  # 使用最新的 Ubuntu 环境
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  # 检出代码
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0  # 拉取完整的 Git 提交历史
 
       - name: Set up Node.js environment
-        uses: actions/setup-node@v3  # 设置 Node.js 环境
+        uses: actions/setup-node@v3
         with:
           node-version: '18'  # 指定 Node.js 版本
 
-      - name: Set Git user
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"  # 设置 Git 用户信息
-
       - name: Install dependencies
         run: |
-          npm install -g standard-version
+          npm install -g conventional-changelog-cli
 
-      - name: Bump version and update changelog
+      - name: Generate changelog
         run: |
-          npx standard-version --release-as minor --skip.tag  # 更新版本并生成 CHANGELOG.md，避免自动标签
+          conventional-changelog -p angular -i CHANGELOG.md -s --template .github/workflows/changelog.hbs
 
       - name: Commit changes
         run: |
-          git add CHANGELOG.md package.json  # 添加更改
-          git commit -m "chore: update changelog" || echo "No changes to commit"  # 提交更改
-          git push  # 推送更改
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md
+          git commit -m "chore: update changelog" || echo "No changes to commit"
+          git push
 
       - name: Tag and push
         run: |
-          VERSION=$(jq -r '.version' package.json)  # 获取新版本号
-          DATE=$(date +'%Y.%m.%d')  # 获取当前日期
-          FULL_VERSION="v$VERSION-$DATE"  # 组合版本号和日期
-          git tag "$FULL_VERSION"  # 创建新标签
-          git push origin "$FULL_VERSION"  # 推送标签
+          VERSION=$(jq -r '.version' package.json)
+          DATE=$(date +'%Y.%m.%d')
+          FULL_VERSION="v$VERSION-$DATE"
+          git tag "$FULL_VERSION"
+          git push origin "$FULL_VERSION"
