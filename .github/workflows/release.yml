@@ -26,7 +26,7 @@ jobs:
 
       - name: Generate changelog
         run: |
-          conventional-changelog -p angular -i CHANGELOG.md -s -r 0  # 生成完整 changelog
+          conventional-changelog -p angular -i CHANGELOG.md -s -r 0 --commit-url-format '{{authorDate}}'  # 生成完整 changelog
 
       - name: Commit changes
         run: |
