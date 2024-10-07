@@ -15,24 +15,26 @@ jobs:
       - name: Set up Node.js environment
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # 指定 Node.js 版本
+          node-version: '18'
 
       - name: Install dependencies
         run: |
           npm install -g standard-version
           npm install -g conventional-changelog-cli
 
-      - name: Generate changelog
-        run: |
-          standard-version
-          conventional-changelog -p angular -i CHANGELOG.md -s -0 --template .github/workflows/changelog.hbs
-
-      - name: Commit changes
+      - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --list  # 确认 Git 配置
-          git add CHANGELOG.md
+
+      - name: Generate changelog
+        run: |
+          standard-version
+          conventional-changelog -p angular -i CHANGELOG.md -s --template .github/workflows/changelog.hbs
+
+      - name: Commit changes
+        run: |
+          git add CHANGELOG.md package.json
           git commit -m "chore: update changelog" || echo "No changes to commit"
           git push
 
@@ -43,3 +45,4 @@ jobs:
           FULL_VERSION="v$VERSION-$DATE"
           git tag "$FULL_VERSION"
           git push origin "$FULL_VERSION"
+
