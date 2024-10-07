@@ -1,5 +1,7 @@
 {{#each commits}}
-{{#if @first}},{{/if}}{{formatDate date}}
+{{formatDate date}}:
+{{#each this}}
 - {{this.subject}} ({{this.shortHash}})
+{{/each}}
 {{/each}}
 
