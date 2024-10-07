@@ -10,7 +10,9 @@ jobs:
     runs-on: ubuntu-latest  # 使用最新的 Ubuntu 环境
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  # 检出你的代码
+        uses: actions/checkout@v3  # 检出代码
+        with:
+          fetch-depth: 0  # 拉取完整的 Git 提交历史
 
       - name: Set up Node.js environment
         uses: actions/setup-node@v3  # 设置 Node.js 环境
@@ -24,22 +26,20 @@ jobs:
 
       - name: Generate changelog
         run: |
-          conventional-changelog -p angular -i CHANGELOG.md -s -r 0     # 生成 changelog
+          conventional-changelog -p angular -i CHANGELOG.md -s -r 0  # 生成完整 changelog
 
       - name: Commit changes
         run: |
-          git config --global user.name "github-actions[bot]"  # 配置 Git 用户名
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"  # 配置 Git 用户邮箱
-          git add CHANGELOG.md  # 添加生成的 changelog 文件
-          git commit -m "chore: update changelog" || echo "No changes to commit"  # 提交更改
-          git push  # 推送到远程仓库
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md
+          git commit -m "chore: update changelog" || echo "No changes to commit"
+          git push
 
       - name: Tag and push
         run: |
-          # 获取 package.json 中的版本号
-          VERSION=$(jq -r '.version' package.json)  # 提取版本号
-          DATE=$(date +'%Y.%m.%d')  # 获取当前日期
-          FULL_VERSION="v$VERSION-$DATE"  # 组合版本号和日期
-
-          git tag "$FULL_VERSION"  # 创建新的标签
-          git push origin "$FULL_VERSION"  # 推送标签到远程仓库
+          VERSION=$(jq -r '.version' package.json)
+          DATE=$(date +'%Y.%m.%d')
+          FULL_VERSION="v$VERSION-$DATE"
+          git tag "$FULL_VERSION"
+          git push origin "$FULL_VERSION"
