@@ -1,6 +1,10 @@
 # 1.4.0 (2024-10-07)
 
 
+
+# 1.4.0 (2024-10-07)
+
+
 ### Bug Fixes
 
 * fix CHANGELOG ([13dcf1e](https://github.com/SanXiaoXing/Black_myth_Wukong/commit/13dcf1e21155d54b123ef87e9fcf35fddbba0f90))
